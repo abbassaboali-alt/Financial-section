@@ -1,76 +1,3 @@
-<!-- 🔵 زر Logout جاهز — كود واحد فقط -->
-
-<!-- أيقونات FontAwesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<style>
-.logout-badge{
-  background:#164478;
-  color:#fff;
-  padding:7px 20px;
-  border-radius:30px;
-  border:none;
-  font-size:14px;
-  font-weight:600;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 3px 8px rgba(0,0,0,0.18);
-  transition:.25s;
-}
-.logout-badge i{
-  font-size:15px;
-}
-.logout-badge:hover{
-  background:#1e5799;
-  transform:translateY(-2px);
-}
-</style>
-
-
-
-
-
-<script>
-// تعطيل الحماية داخل محرر Weebly
-if (!location.hostname.includes("editmysite") && !location.hostname.includes("weebly")) {
-
-  // حماية الصفحات – التحقق من تسجيل الدخول
-  (function(){
-
-    let user = localStorage.getItem("username");
-    let role = localStorage.getItem("role");
-    let last = localStorage.getItem("loginDate");
-
-    // ممنوع الدخول إذا لا يوجد مستخدم
-    if(!user || !role){
-      location.href = "https://www.prudle-education.com/log-in_out.html";
-      return;
-    }
-
-    // Auto Logout
-    let today = new Date().toDateString();
-    if(last !== today){
-      localStorage.clear();
-      location.href = "https://www.prudle-education.com/log-in_out.html";
-      return;
-    }
-
-    // منع الدخول لغير الأدمن
-    if(role !== "admin"){
-      alert("Access Denied!");
-      location.href = "https://www.prudle-education.com/log-in_out.html";
-    }
-
-  })();
-} 
-// لو الصفحة داخل محرر Weebly: لا تعمل حماية
-else {
-  console.log("Weebly Editor Mode — Protection Disabled");
-}
-</script>
-
 <style>
 /* ===== Final Grade Status ===== */
 .st-ex{background:#1abc9c;color:#fff}
@@ -2884,17 +2811,6 @@ function updateUndoButton(){
 </div>
 </body>
 </html>
-<script>
-let role = localStorage.getItem("role");
-if(role !== "admin"){
-  alert("Access Denied!");
-  location.href = "https://www.prudle-education.com/log-in-out";
-}
-function logout(){
-  localStorage.clear();
-  window.location.href = "https://www.prudle-education.com/log-in_out.html";
-}
-</script>
 
 
 
