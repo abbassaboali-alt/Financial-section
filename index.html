@@ -614,26 +614,27 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 <script>
 /* ===== Logout + Protection ===== */
 function logout(){
-  localStorage.removeItem("username");
+  localStorage.clear();
   location.href="https://www.prudle-education.com/log-in-out";
-} 
+}
+
 (function(){
-let user = localStorage.getItem("username");
-let role = localStorage.getItem("role");
-let last = localStorage.getItem("loginDate");
+  let user = localStorage.getItem("username");
+  let role = localStorage.getItem("role");
+  let last = localStorage.getItem("loginDate");
 
-if(!user || !role){
-location.href = "https://www.prudle-education.com/log-in-out";
-return;
-}
+  if(!user || !role){
+    location.href = "https://www.prudle-education.com/log-in-out";
+    return;
+  }
 
-let today = new Date().toDateString();
+  let today = new Date().toDateString();
 
-if(last !== today){
-localStorage.clear();
-location.href = "https://www.prudle-education.com/log-in-out";
-return;
-}
+  if(last !== today){
+    localStorage.clear();
+    location.href = "https://www.prudle-education.com/log-in-out";
+    return;
+  }
 })();
 /* ===========================
    Firebase
