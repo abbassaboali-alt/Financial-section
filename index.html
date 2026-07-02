@@ -30,12 +30,7 @@
 
 
 
-<script>
-function logout(){
-  localStorage.removeItem("username");
-  location.href="https://www.prudle-education.com/log-in_out.html";
-}
-</script>
+
 
 <script>
 // تعطيل الحماية داخل محرر Weebly
@@ -2894,6 +2889,10 @@ let role = localStorage.getItem("role");
 if(role !== "admin"){
   alert("Access Denied!");
   location.href = "https://www.prudle-education.com/log-in-out";
+}
+function logout(){
+  localStorage.clear();
+  window.location.href = "https://www.prudle-education.com/log-in_out.html";
 }
 </script>
 
