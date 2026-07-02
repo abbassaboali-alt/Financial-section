@@ -42,7 +42,7 @@ if (!location.hostname.includes("editmysite") && !location.hostname.includes("we
 
     // ممنوع الدخول إذا لا يوجد مستخدم
     if(!user || !role){
-      location.href = "https://www.prudle-education.com/log-in_out.html";
+      location.href = "https://www.prudle-education.com/log-in-out";
       return;
     }
 
@@ -50,14 +50,14 @@ if (!location.hostname.includes("editmysite") && !location.hostname.includes("we
     let today = new Date().toDateString();
     if(last !== today){
       localStorage.clear();
-      location.href = "https://www.prudle-education.com/log-in_out.html";
+      location.href = "https://www.prudle-education.com/log-in-out";
       return;
     }
 
     // منع الدخول لغير الأدمن
     if(role !== "admin"){
       alert("Access Denied!");
-      location.href = "https://www.prudle-education.com/log-in_out.html";
+      location.href = "https://www.prudle-education.com/log-in-out";
     }
 
   })();
@@ -2889,7 +2889,7 @@ if(role !== "admin"){
 }
 function logout(){
   localStorage.clear();
-  window.location.href = "https://www.prudle-education.com/log-in_out.html";
+  window.location.href = "https://www.prudle-education.com/log-in-out";
 }
 </script>
 
