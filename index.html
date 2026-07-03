@@ -89,15 +89,15 @@ div, section, header, footer{
 (function(){
 
   const user = localStorage.getItem("username");
-  const role = localStorage.getItem("role");
-  const last = localStorage.getItem("loginDate");
+  const role = String(
+    localStorage.getItem("role") || ""
+  ).trim().toLowerCase();
 
-  if(!user || !role){
-    location.href =
+  if(!user || role !== "admin"){
+    window.top.location.href =
       "https://www.prudle-education.com/log-in-out";
     return;
   }
-
   if(new Date().toDateString() !== last){
     localStorage.clear();
     location.href =
