@@ -1,3 +1,28 @@
+<script>
+(function(){
+
+  const host = location.hostname.toLowerCase();
+
+  // السماح داخل Webflow و Weebly
+  if(
+    host.includes("webflow.io") ||
+    host.includes("webflow.com") ||
+    host.includes("weebly.com") ||
+    host.includes("editmysite.com")
+  ){
+    return;
+  }
+
+  const user = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
+
+  if(!user || role !== "admin"){
+    location.href="https://www.prudle-education.com/log-in-out";
+    return;
+  }
+
+})();
+</script>
 <style>
 /* ===== Final Grade Status ===== */
 .st-ex{background:#1abc9c;color:#fff}
