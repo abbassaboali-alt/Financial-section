@@ -1,28 +1,4 @@
-<script>
-(function(){
 
-  const host = location.hostname.toLowerCase();
-
-  // السماح داخل Webflow و Weebly
-  if(
-    host.includes("webflow.io") ||
-    host.includes("webflow.com") ||
-    host.includes("weebly.com") ||
-    host.includes("editmysite.com")
-  ){
-    return;
-  }
-
-  const user = localStorage.getItem("username");
-  const role = localStorage.getItem("role");
-
-  if(!user || role !== "admin"){
-    location.href="https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-})();
-</script>
 <style>
 /* ===== Final Grade Status ===== */
 .st-ex{background:#1abc9c;color:#fff}
@@ -109,6 +85,29 @@ div, section, header, footer{
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>
+(function(){
+
+  const host = location.hostname.toLowerCase();
+
+  if(
+    host.includes("webflow.io") ||
+    host.includes("webflow.com") ||
+    host.includes("webflow.com")
+  ){
+    return;
+  }
+
+  const user = localStorage.getItem("username");
+  const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
+
+  if(!user || role !== "admin"){
+    window.location.replace("https://www.prudle-education.com/log-in-out");
+    return;
+  }
+
+})();
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>Prudle — البيان المالي (عرض + PDF)</title>
