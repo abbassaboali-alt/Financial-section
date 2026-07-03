@@ -82,28 +82,22 @@ div, section, header, footer{
 }</style>
 
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
-
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>Prudle — البيان المالي (عرض + PDF)</title>
 
 <!-- Fonts -->
-
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet" />
 <!-- FontAwesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
 <!-- Firebase -->
-
 <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
 
 <!-- PDF -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
@@ -389,13 +383,11 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 .section-title{margin:0;color:#164478;font-weight:900}
 .modal-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
 </style>
-
 </head>
 
 <body>
 
 <!-- زر تسجيل الخروج -->
-
 <button class="logout-badge" onclick="logout()">
   <i class="fa-solid fa-right-from-bracket"></i> Logout
 </button>
@@ -425,7 +417,7 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 <button class="btn"
         onclick="bulkNationality()">
 
-تعديل الجنسية (المحدد)
+  تعديل الجنسية (المحدد)
 
 </button>
   <button class="btn green" onclick="increaseLevelBulk()">
@@ -458,7 +450,6 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 </button>
 
   <!-- ✅ فلتر الحالة حسب المستويات -->
-
   <select id="fStatus">
     <option value="">الحالة (الكل)</option>
 <option value="new"> جديد</option>
@@ -503,26 +494,24 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 </div>
 
 <!-- ===== Edit Modal ===== -->
-
 <div class="modal" id="editModal">
   <div class="modal-box">
     <h3 class="modal-title">✏️ تعديل بيانات الطالب</h3>
 
-<div id="closedNotice" class="closed-notice" style="display:none;">
-  □ هذه الدورة مغلقة — لا يمكن تعديل السجل إلا بعد فتح الدورة
-</div>
+    <div id="closedNotice" class="closed-notice" style="display:none;">
+      □ هذه الدورة مغلقة — لا يمكن تعديل السجل إلا بعد فتح الدورة
+    </div>
 
-<div class="modal-hint" id="editHint">—</div>
+    <div class="modal-hint" id="editHint">—</div>
 
-<label>الاسم (EN)</label>
-<input id="eName" />
+    <label>الاسم (EN)</label>
+    <input id="eName" />
 
-<label>الاسم (AR)</label>
-<input id="eNameAr" />
+    <label>الاسم (AR)</label>
+    <input id="eNameAr" />
 
-<label>الجوال</label>
-<input id="ePhone" />
-
+    <label>الجوال</label>
+    <input id="ePhone" />
 <label>الجنسية</label>
 
 <select id="eNationality">
@@ -544,27 +533,26 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
     <label>الهوية</label>
     <input id="eIqama" />
 
-<label>العمر</label>
-<input id="eAge" min="0" type="number" />
+    <label>العمر</label>
+    <input id="eAge" min="0" type="number" />
 
-<label>الدورة (المفتوحة فقط)</label>
-<select id="eCourse" onchange="updateCourseInfo()"></select>
+    <label>الدورة (المفتوحة فقط)</label>
+    <select id="eCourse" onchange="updateCourseInfo()"></select>
 
-<label>المدرب</label>
-<input class="readonly" id="eTrainer" readonly="readonly" />
+    <label>المدرب</label>
+    <input class="readonly" id="eTrainer" readonly="readonly" />
 
-<label>الفترة</label>
-<input class="readonly" id="ePeriod" readonly="readonly" />
+    <label>الفترة</label>
+    <input class="readonly" id="ePeriod" readonly="readonly" />
 
-<label>القاعة</label>
-<input class="readonly" id="eRoom" readonly="readonly" />
+    <label>القاعة</label>
+    <input class="readonly" id="eRoom" readonly="readonly" />
 
-<hr />
-
+    <hr />
 <label>الباقة</label>
 
 <select id="ePackage"
-     onchange="applyPackagePrice()">
+        onchange="applyPackagePrice()">
 
   <option value="">
     اختر الباقة
@@ -578,50 +566,48 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
        oninput="calcPayRemain(); autoCalculateLevelPrice()"
        type="number" />
 
-<label>المدفوع (Paid Amount)</label>
-<input id="ePaid" min="0" oninput="calcPayRemain()" type="number" />
+    <label>المدفوع (Paid Amount)</label>
+    <input id="ePaid" min="0" oninput="calcPayRemain()" type="number" />
 
-<label>المتبقي (Balance)</label>
-<input class="readonly" id="eRemain" readonly="readonly" />
-
+    <label>المتبقي (Balance)</label>
+    <input class="readonly" id="eRemain" readonly="readonly" />
 <label> سعر المستوى الواحد(Level Price)</label>
 
 <input id="eLevelPrice"
-    class="readonly"
-    readonly
-    type="number" />
+       class="readonly"
+       readonly
+       type="number" />
 
-<label>طريقة الدفع (Payment Method)</label>
-<select id="ePayMethod">
-  <option value="">—</option>
-  <option value="Tabby">Tabby</option>
-  <option value="Tamara">Tamara</option>
-  <option value="Cash">Cash</option>
-  <option value="Visa">Visa</option>
-  <option value="MasterCard">MasterCard</option>
-  <option value="Mada">Mada</option>
-</select>
+    <label>طريقة الدفع (Payment Method)</label>
+    <select id="ePayMethod">
+      <option value="">—</option>
+      <option value="Tabby">Tabby</option>
+      <option value="Tamara">Tamara</option>
+      <option value="Cash">Cash</option>
+      <option value="Visa">Visa</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="Mada">Mada</option>
+    </select>
 
-<hr />
+    <hr />
 
-<h4 class="section-title">المستويات</h4>
-<label>عدد المستويات (Total Levels)</label>
-<input id="eTotalLv"
-   min="0"
-   oninput="calcLevelRemain(); autoCalculateLevelPrice()"
-   type="number" />
+    <h4 class="section-title">المستويات</h4>
+    <label>عدد المستويات (Total Levels)</label>
+    <input id="eTotalLv"
+       min="0"
+       oninput="calcLevelRemain(); autoCalculateLevelPrice()"
+       type="number" />
 
-<label>المستخدم (Used Levels)</label>
-<input id="eUsedLv" min="0" oninput="calcLevelRemain(); autoDeductFromPaid()" type="number" />
+    <label>المستخدم (Used Levels)</label>
+    <input id="eUsedLv" min="0" oninput="calcLevelRemain(); autoDeductFromPaid()" type="number" />
 
-<label>المتبقي (Remaining Levels)</label>
-<input class="readonly" id="eRemainLv" readonly="readonly" />
+    <label>المتبقي (Remaining Levels)</label>
+    <input class="readonly" id="eRemainLv" readonly="readonly" />
 
-<div class="modal-actions">
-  <button class="btn" id="btnSaveEdit" onclick="saveEdit()">حفظ</button>
-  <button class="btn gray" onclick="closeEdit()">إغلاق</button>
-</div>
-
+    <div class="modal-actions">
+      <button class="btn" id="btnSaveEdit" onclick="saveEdit()">حفظ</button>
+      <button class="btn gray" onclick="closeEdit()">إغلاق</button>
+    </div>
   </div>
 </div>
 
@@ -1674,7 +1660,6 @@ eLevelPrice.value = 0;
 }
 
 </script>
-
 <script>
 /* ===========================
 PDF EXPORT
@@ -2775,64 +2760,58 @@ function updateUndoButton(){
 
 }
 </script>
-
 <!-- =========================
    PACKAGE MODAL
 ========================= -->
-
 <div class="modal" id="packageModal">
 
   <div class="modal-box">
 
-<h3 class="modal-title">
-  إدارة الباقات والأسعار
-</h3>
+    <h3 class="modal-title">
+      إدارة الباقات والأسعار
+    </h3>
 
-<label>اسم الباقة</label>
-<input id="pkgName"
-       placeholder="مثال: عرض الصيف">
+    <label>اسم الباقة</label>
+    <input id="pkgName"
+           placeholder="مثال: عرض الصيف">
 
-<label>السعر الكامل</label>
-<input id="pkgPrice"
-       type="number"
-       min="0">
-
+    <label>السعر الكامل</label>
+    <input id="pkgPrice"
+           type="number"
+           min="0">
 <label>عدد المستويات</label>
 
 <input id="pkgLevels"
-    type="number"
-    min="1"
-    value="12">
+       type="number"
+       min="1"
+       value="12">
 
-<div class="modal-actions">
+    <div class="modal-actions">
 
-  <button class="btn green"
-          onclick="savePackage()">
+      <button class="btn green"
+              onclick="savePackage()">
 
-    حفظ الباقة
-  </button>
+        حفظ الباقة
+      </button>
 
-  <button class="btn gray"
-          onclick="closePackageModal()">
+      <button class="btn gray"
+              onclick="closePackageModal()">
 
-    إغلاق
-  </button>
+        إغلاق
+      </button>
 
-</div>
+    </div>
 
-<hr>
+    <hr>
 
-<div id="packageList"></div>
+    <div id="packageList"></div>
 
   </div>
 
 </div>
-<script>
-function logout(){
-
-localStorage.removeItem("username");localStorage.removeItem("role");localStorage.removeItem("loginDate");
-
-location.href = "https://www.prudle-education.com/log-in-out";}</script>
-
 </body>
 </html>
+
+
+
+
