@@ -94,21 +94,21 @@ div, section, header, footer{
 
   if(!user || !role){
     location.href =
-      "https://www.prudle-education.com/log-in_out.html";
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
   if(new Date().toDateString() !== last){
     localStorage.clear();
     location.href =
-      "https://www.prudle-education.com/log-in_out.html";
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
   if(role !== "admin"){
     alert("Access Denied");
     location.href =
-      "https://www.prudle-education.com/log-in_out.html";
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
