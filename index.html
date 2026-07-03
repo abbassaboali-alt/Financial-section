@@ -616,17 +616,18 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 /* ===== حماية الدخول مثل الكود الثاني ===== */
 (function(){
 
-  const user = localStorage.getItem("username");
-  const role = localStorage.getItem("role");
-  const loginDate = localStorage.getItem("loginDate");
+  let user = localStorage.getItem("username");
+  let role = localStorage.getItem("role");
+  let last = localStorage.getItem("loginDate");
 
   if(!user || !role){
-    localStorage.clear();
     location.href = "https://www.prudle-education.com/log-in-out";
     return;
   }
 
-  if(loginDate !== new Date().toDateString()){
+  let today = new Date().toDateString();
+
+  if(last !== today){
     localStorage.clear();
     location.href = "https://www.prudle-education.com/log-in-out";
     return;
@@ -634,7 +635,6 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 
 })();
 
-/* تسجيل الخروج */
 function logout(){
   localStorage.clear();
   location.href = "https://www.prudle-education.com/log-in-out";
