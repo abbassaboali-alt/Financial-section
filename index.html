@@ -2825,14 +2825,19 @@ function updateUndoButton(){
 <div id="packageList"></div>
 
   </div>
+
 </div>
 <script>
 function logout(){
+
+  window.parent.postMessage(
+    "PRUDLE_LOGOUT",
+    "https://www.prudle-education.com"
+  );
+
   localStorage.clear();
   sessionStorage.clear();
-  window.top.location.replace(
-    "https://www.prudle-education.com/log-in-out"
-  );
+
 }
 </script>
 
