@@ -85,38 +85,7 @@ div, section, header, footer{
 
 <html lang="ar" dir="rtl">
 <head>
-  <script>
-(function(){
 
-  const user = localStorage.getItem("username");
-  const role = String(localStorage.getItem("role") || "")
-    .trim()
-    .toLowerCase();
-  const last = localStorage.getItem("loginDate");
-
-  if(!user || !role){
-    localStorage.clear();
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-  if(last !== new Date().toDateString()){
-    localStorage.clear();
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-  if(role !== "admin"){
-    localStorage.clear();
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-})();
-</script>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
 <title>Prudle — البيان المالي (عرض + PDF)</title>
