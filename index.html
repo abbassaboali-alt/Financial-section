@@ -88,34 +88,30 @@ div, section, header, footer{
   <script>
 (function(){
 
-  const host = location.hostname.toLowerCase();
+  const user = localStorage.getItem("username");
+  const role = String(localStorage.getItem("role") || "")
+    .trim()
+    .toLowerCase();
+  const last = localStorage.getItem("loginDate");
 
-  if(
-    host.includes("webflow.io") ||
-    host.includes("webflow.com") ||
-    host.includes("webflow.com")
-  ){
+  if(!user || !role){
+    localStorage.clear();
+    window.top.location.href =
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
-  const user = localStorage.getItem("username");
-  const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
-
-  if(!user || role !== "admin"){
-    window.top.location.href = "https://www.prudle-education.com/log-in-out";
+  if(last !== new Date().toDateString()){
+    localStorage.clear();
+    window.top.location.href =
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
-})();
-</script>
-<<script>
-(function(){
-
-  const user = localStorage.getItem("username");
-  const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
-
-  if(!user || role !== "admin"){
-    window.top.location.href = "https://www.prudle-education.com/log-in-out";
+  if(role !== "admin"){
+    localStorage.clear();
+    window.top.location.href =
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
