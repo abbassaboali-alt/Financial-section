@@ -19,7 +19,7 @@
 =============================== */
 
 /* 1️⃣ الصفحة بكامل العرض */
-html, body{
+html, body{	
   margin:0 !important;
   padding:0 !important;
   width:100% !important;
@@ -612,27 +612,25 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 </div>
 
 <script>
-/* ===== Logout + Protection ===== */
-function logout(){
-  localStorage.removeItem("username");
-  localStorage.removeItem("role");
-  localStorage.removeItem("loginDate");
-  location.href="https://www.prudle-education.com/log-in-out";
-}
+
+/* ===== حماية الدخول مثل الكود الثاني ===== */
 (function(){
-  const user = localStorage.getItem("username");
-  const role = localStorage.getItem("role");
-  const last = localStorage.getItem("loginDate");
-  if(!user || !role){
-    location.href="https://www.prudle-education.com/log-in-out";
+
+  const loginDate = localStorage.getItem("loginDate");
+
+  if(loginDate !== new Date().toDateString()){
+    localStorage.clear();
+    location.href = "https://www.prudle-education.com/log-in-out";
     return;
   }
-  const today = new Date().toDateString();
-  if(last !== today){
-    localStorage.clear();
-    location.href="https://www.prudle-education.com/log-in-out";
-  }
+
 })();
+
+/* ===== تسجيل الخروج ===== */
+function logout(){
+  localStorage.clear();
+  location.href = "https://www.prudle-education.com/log-in-out";
+}
 
 /* ===========================
    Firebase
@@ -2832,6 +2830,7 @@ function updateUndoButton(){
 </div>
 </body>
 </html>
+
 
 
 
