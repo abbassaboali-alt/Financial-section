@@ -1,31 +1,3 @@
-
-
-ؤر<script>
-// حماية الصفحات – التحقق من تسجيل الدخول
-(function(){
-
-  // لا يسمح بالدخول بدون تسجيل دخول
-  let user = localStorage.getItem("username");
-  let role = localStorage.getItem("role");
-  let last = localStorage.getItem("loginDate");
-
-  // ممنوع الدخول إذا مافي مستخدم
-  if(!user || !role){
-    location.href = "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-  // التحقق من تاريخ آخر دخول (Auto Logout)
-  let today = new Date().toDateString();
-  if(last !== today){
-    localStorage.clear();
-    location.href = "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-})();
-</script>
-
 <style>
 /* ===== Final Grade Status ===== */
 .st-ex{background:#1abc9c;color:#fff}
@@ -47,7 +19,7 @@
 =============================== */
 
 /* 1️⃣ الصفحة بكامل العرض */
-html, body{	
+html, body{
   margin:0 !important;
   padding:0 !important;
   width:100% !important;
@@ -640,6 +612,27 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 </div>
 
 <script>
+/* ===== Logout + Protection ===== */
+function logout(){
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  localStorage.removeItem("loginDate");
+  location.href="https://www.prudle-education.com/log-in-out";
+}
+(function(){
+  const user = localStorage.getItem("username");
+  const role = localStorage.getItem("role");
+  const last = localStorage.getItem("loginDate");
+  if(!user || !role){
+    location.href="https://www.prudle-education.com/log-in-out";
+    return;
+  }
+  const today = new Date().toDateString();
+  if(last !== today){
+    localStorage.clear();
+    location.href="https://www.prudle-education.com/log-in-out";
+  }
+})();
 
 /* ===========================
    Firebase
@@ -2839,14 +2832,6 @@ function updateUndoButton(){
 </div>
 </body>
 </html>
-<script>
-let role = localStorage.getItem("role");
-if(role !== "admin"){
-  alert("Access Denied!");
-  location.href = "https://www.prudle-education.com/log-in-out";
-}
-</script>
-
 
 
 
