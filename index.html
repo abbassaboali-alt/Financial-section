@@ -84,40 +84,6 @@ div, section, header, footer{
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <!-- ===== PAGE PROTECTION ===== -->
-<script>
-(function(){
-
-  if(
-    location.hostname.includes("weebly") ||
-    location.hostname.includes("editmysite")
-  ){
-    return;
-  }
-
-  const user = localStorage.getItem("username");
-  const role = localStorage.getItem("role");
-  const last = localStorage.getItem("loginDate");
-
-  if(!user || !role){
-    location.href = "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-if(role !== "admin"){
-  alert("Access Denied");
-  location.href = "https://www.prudle-education.com/log-in-out";
-  return;
-}
-  const today = new Date().toDateString();
-
-  if(last !== today){
-    localStorage.clear();
-    location.href = "https://www.prudle-education.com/log-in_out.html";
-    return;
-  }
-
-})();
-</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 <title>Prudle — البيان المالي (عرض + PDF)</title>
@@ -2850,12 +2816,11 @@ function logout(){
   localStorage.removeItem("role");
   localStorage.removeItem("loginDate");
 
-  location.href = "https://www.prudle-education.com/log-in_out.html";
+  location.href = "https://www.prudle-education.com/log-in-out";
 }
 </script>
 </body>
 </html>
-
 
 
 
