@@ -89,13 +89,26 @@ div, section, header, footer{
 (function(){
 
   const user = localStorage.getItem("username");
-  const role = String(localStorage.getItem("role") || "")
-    .trim()
-    .toLowerCase();
+  const role = localStorage.getItem("role");
+  const last = localStorage.getItem("loginDate");
 
-  if(!user || role !== "admin"){
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
+  if(!user || !role){
+    location.href =
+      "https://www.prudle-education.com/log-in_out.html";
+    return;
+  }
+
+  if(new Date().toDateString() !== last){
+    localStorage.clear();
+    location.href =
+      "https://www.prudle-education.com/log-in_out.html";
+    return;
+  }
+
+  if(role !== "admin"){
+    alert("Access Denied");
+    location.href =
+      "https://www.prudle-education.com/log-in_out.html";
     return;
   }
 
