@@ -85,32 +85,37 @@ div, section, header, footer{
 
 <html lang="ar" dir="rtl">
 <head>
-<script>
+  <script>
+(function(){
+
+  const host = location.hostname.toLowerCase();
+
+  if(
+    host.includes("webflow.io") ||
+    host.includes("webflow.com") ||
+    host.includes("webflow.com")
+  ){
+    return;
+  }
+
+  const user = localStorage.getItem("username");
+  const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
+
+  if(!user || role !== "admin"){
+    window.top.location.href = "https://www.prudle-education.com/log-in-out";
+    return;
+  }
+
+})();
+</script>
+<<script>
 (function(){
 
   const user = localStorage.getItem("username");
-  const role = String(localStorage.getItem("role") || "")
-    .trim()
-    .toLowerCase();
-  const last = localStorage.getItem("loginDate");
+  const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
 
-  if(!user || !role){
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-  if(last !== new Date().toDateString()){
-    localStorage.clear();
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
-    return;
-  }
-
-  if(role !== "admin"){
-    alert("Access Denied");
-    window.top.location.href =
-      "https://www.prudle-education.com/log-in-out";
+  if(!user || role !== "admin"){
+    window.top.location.href = "https://www.prudle-education.com/log-in-out";
     return;
   }
 
