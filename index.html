@@ -88,13 +88,14 @@ div, section, header, footer{
   <script>
 (function(){
 
-  const host = location.hostname.toLowerCase();
+  const user = localStorage.getItem("username");
+  const role = String(
+    localStorage.getItem("role") || ""
+  ).trim().toLowerCase();
 
-  if(
-    host.includes("webflow.io") ||
-    host.includes("webflow.com") ||
-    host.includes("webflow.com")
-  ){
+  if(!user || role !== "admin"){
+    window.top.location.href =
+      "https://www.prudle-education.com/log-in-out";
     return;
   }
 
@@ -102,7 +103,7 @@ div, section, header, footer{
   const role = String(localStorage.getItem("role") || "").trim().toLowerCase();
 
   if(!user || role !== "admin"){
-    window.location.replace("https://www.prudle-education.com/log-in-out");
+   window.top.location.href = "https://www.prudle-education.com/log-in-out";
     return;
   }
 
