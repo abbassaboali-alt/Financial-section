@@ -2829,10 +2829,14 @@ function updateUndoButton(){
 </div>
 <script>
 function logout(){
+  localStorage.clear();
+  sessionStorage.clear();
 
-localStorage.removeItem("username");localStorage.removeItem("role");localStorage.removeItem("loginDate");
-
-location.href = "https://www.prudle-education.com/log-in-out";}</script>
+  window.top.location.replace(
+    "https://www.prudle-education.com/log-in_out"
+  );
+}
+</script>
 
 </body>
 </html>
