@@ -388,6 +388,105 @@ tr:nth-child(even){background:#f2f6fd}
 hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 .section-title{margin:0;color:#164478;font-weight:900}
 .modal-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+/* ==================================
+   نافذة التعديل الجماعي
+================================== */
+
+.bulk-modal-box{
+  width:100%;
+  max-width:720px;
+}
+
+.bulk-count{
+  background:#eef4ff;
+  border:1px solid #c7d9f4;
+  color:#164478;
+  padding:10px 14px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.bulk-warning{
+  background:#fff3cd;
+  border:1px solid #ffe69c;
+  color:#856404;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.7;
+  margin-bottom:14px;
+}
+
+.bulk-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.bulk-field{
+  background:#f8faff;
+  border:1px solid #dbe5f4;
+  border-radius:14px;
+  padding:12px;
+}
+
+.bulk-field-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+  color:#164478;
+  font-weight:900;
+}
+
+.bulk-field-head input{
+  width:18px;
+  height:18px;
+  margin:0;
+}
+
+.bulk-field input,
+.bulk-field select{
+  width:100%;
+  height:42px;
+  padding:8px 10px;
+  border:1px solid #ccd3e2;
+  border-radius:10px;
+  font-family:'Tajawal',sans-serif;
+  font-weight:800;
+  background:#fff;
+  color:#111827;
+}
+
+.bulk-field input:disabled,
+.bulk-field select:disabled{
+  background:#e9edf4;
+  color:#888;
+  cursor:not-allowed;
+}
+
+.bulk-actions{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+}
+
+.bulk-actions button{
+  flex:1;
+}
+
+@media(max-width:650px){
+  .bulk-grid{
+    grid-template-columns:1fr;
+  }
+
+  .bulk-actions{
+    flex-direction:column;
+  }
+}
 </style>
 
 </head>
@@ -427,6 +526,13 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 
 تعديل الجنسية (المحدد)
 
+</button>
+<button
+  class="btn"
+  onclick="openBulkEditModal()"
+>
+  <i class="fa-solid fa-pen-to-square"></i>
+  تعديل جماعي (المحدد)
 </button>
   <button class="btn green" onclick="increaseLevelBulk()">
   ترحيل المستوى (المحدد)
@@ -624,7 +730,305 @@ hr{border:none;border-top:1px dashed #d6def0;margin:12px 0}
 
   </div>
 </div>
+<!-- ==================================
+     نافذة التعديل الجماعي
+=================================== -->
 
+<div class="modal" id="bulkEditModal">
+
+  <div class="modal-box bulk-modal-box">
+
+    <h3 class="modal-title">
+      <i class="fa-solid fa-users-gear"></i>
+      تعديل جماعي للسجلات المحددة
+    </h3>
+
+    <div class="bulk-count" id="bulkSelectedCount">
+      عدد السجلات المحددة: 0
+    </div>
+
+    <div class="bulk-warning">
+      فعّل مربع الاختيار بجانب الحقل الذي تريد تغييره.
+      الحقول غير المفعلة لن تتغير.
+    </div>
+
+    <div class="bulk-grid">
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseNationality"
+            onchange="toggleBulkField(
+              'bulkUseNationality',
+              'bulkNationalityValue'
+            )"
+          >
+
+          <label for="bulkUseNationality">
+            تغيير الجنسية
+          </label>
+
+        </div>
+
+        <select id="bulkNationalityValue" disabled>
+          <option value="">اختر الجنسية</option>
+          <option value="Saudi">Saudi</option>
+          <option value="Yemeni">Yemeni</option>
+          <option value="Sudanese">Sudanese</option>
+          <option value="Egyptian">Egyptian</option>
+          <option value="Pakistani">Pakistani</option>
+          <option value="Indian">Indian</option>
+          <option value="Bangladeshi">Bangladeshi</option>
+          <option value="Syrian">Syrian</option>
+          <option value="Jordanian">Jordanian</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseCourse"
+            onchange="toggleBulkField(
+              'bulkUseCourse',
+              'bulkCourseValue'
+            )"
+          >
+
+          <label for="bulkUseCourse">
+            تغيير الدورة
+          </label>
+
+        </div>
+
+        <select id="bulkCourseValue" disabled>
+          <option value="">اختر الدورة</option>
+        </select>
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUsePackage"
+            onchange="toggleBulkField(
+              'bulkUsePackage',
+              'bulkPackageValue'
+            )"
+          >
+
+          <label for="bulkUsePackage">
+            تغيير الباقة
+          </label>
+
+        </div>
+
+        <select id="bulkPackageValue" disabled>
+          <option value="">اختر الباقة</option>
+        </select>
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUsePaymentType"
+            onchange="toggleBulkField(
+              'bulkUsePaymentType',
+              'bulkPaymentTypeValue'
+            )"
+          >
+
+          <label for="bulkUsePaymentType">
+            تغيير طريقة الدفع
+          </label>
+
+        </div>
+
+        <select id="bulkPaymentTypeValue" disabled>
+          <option value="">اختر طريقة الدفع</option>
+          <option value="Tabby">Tabby</option>
+          <option value="Tamara">Tamara</option>
+          <option value="Cash">Cash</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="Mada">Mada</option>
+        </select>
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseFee"
+            onchange="toggleBulkField(
+              'bulkUseFee',
+              'bulkFeeValue'
+            )"
+          >
+
+          <label for="bulkUseFee">
+            تغيير الرسوم
+          </label>
+
+        </div>
+
+        <input
+          type="number"
+          id="bulkFeeValue"
+          min="0"
+          placeholder="الرسوم الجديدة"
+          disabled
+        >
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUsePaid"
+            onchange="toggleBulkField(
+              'bulkUsePaid',
+              'bulkPaidValue'
+            )"
+          >
+
+          <label for="bulkUsePaid">
+            تغيير المدفوع
+          </label>
+
+        </div>
+
+        <input
+          type="number"
+          id="bulkPaidValue"
+          min="0"
+          placeholder="المبلغ المدفوع الجديد"
+          disabled
+        >
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseTotalLevels"
+            onchange="toggleBulkField(
+              'bulkUseTotalLevels',
+              'bulkTotalLevelsValue'
+            )"
+          >
+
+          <label for="bulkUseTotalLevels">
+            تغيير إجمالي المستويات
+          </label>
+
+        </div>
+
+        <input
+          type="number"
+          id="bulkTotalLevelsValue"
+          min="0"
+          placeholder="إجمالي المستويات"
+          disabled
+        >
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseUsedLevels"
+            onchange="toggleBulkField(
+              'bulkUseUsedLevels',
+              'bulkUsedLevelsValue'
+            )"
+          >
+
+          <label for="bulkUseUsedLevels">
+            تغيير المستويات المستخدمة
+          </label>
+
+        </div>
+
+        <input
+          type="number"
+          id="bulkUsedLevelsValue"
+          min="0"
+          placeholder="المستويات المستخدمة"
+          disabled
+        >
+      </div>
+
+
+      <div class="bulk-field">
+        <div class="bulk-field-head">
+
+          <input
+            type="checkbox"
+            id="bulkUseAge"
+            onchange="toggleBulkField(
+              'bulkUseAge',
+              'bulkAgeValue'
+            )"
+          >
+
+          <label for="bulkUseAge">
+            تغيير العمر
+          </label>
+
+        </div>
+
+        <input
+          type="number"
+          id="bulkAgeValue"
+          min="0"
+          placeholder="العمر الجديد"
+          disabled
+        >
+      </div>
+
+    </div>
+
+    <div class="bulk-actions">
+
+      <button
+        class="btn green"
+        id="bulkSaveBtn"
+        onclick="saveBulkEdit()"
+      >
+        <i class="fa-solid fa-floppy-disk"></i>
+        حفظ التعديل الجماعي
+      </button>
+
+      <button
+        class="btn gray"
+        onclick="closeBulkEditModal()"
+      >
+        إغلاق
+      </button>
+
+    </div>
+
+  </div>
+</div>
 <script>
 
 /* ===========================
@@ -1185,7 +1589,8 @@ function selectAll(){
 
   updateUndoButton();
 
-}function clearSelection(){
+}
+function clearSelection(){
 
   document.querySelectorAll(".rowCheck").forEach(cb=>{
 
@@ -1204,7 +1609,862 @@ function selectAll(){
 
   updateUndoButton();
 
-}/* ===========================
+}
+/* ==================================
+   BULK EDIT SYSTEM
+================================== */
+
+/*
+  إحضار IDs المحددة.
+
+  نستخدم SELECTED، ونقرأ أيضًا مربعات
+  الاختيار لضمان عدم فقدان أي تحديد.
+*/
+function getSelectedStudentIds(){
+
+  const ids = new Set(SELECTED);
+
+  document
+    .querySelectorAll(".rowCheck:checked")
+    .forEach(cb => {
+
+      if(cb.dataset.id){
+        ids.add(cb.dataset.id);
+      }
+
+    });
+
+  return [...ids];
+}
+
+
+/*
+  تشغيل أو تعطيل حقل من حقول
+  نافذة التعديل الجماعي.
+*/
+function toggleBulkField(
+  checkboxId,
+  fieldId
+){
+
+  const checkbox =
+    document.getElementById(
+      checkboxId
+    );
+
+  const field =
+    document.getElementById(
+      fieldId
+    );
+
+  if(!checkbox || !field){
+    return;
+  }
+
+  field.disabled =
+    !checkbox.checked;
+
+  if(checkbox.checked){
+    field.focus();
+  }
+}
+
+
+/*
+  فتح نافذة التعديل الجماعي.
+*/
+function openBulkEditModal(){
+
+  const selectedIds =
+    getSelectedStudentIds();
+
+  if(selectedIds.length === 0){
+
+    alert(
+      "حدد طالبًا واحدًا أو أكثر أولاً"
+    );
+
+    return;
+  }
+
+  /*
+    فحص الدورات المغلقة.
+  */
+  const closedStudents =
+    selectedIds.filter(id => {
+
+      const student =
+        STUDENTS.find(
+          s => s.id === id
+        );
+
+      if(!student){
+        return false;
+      }
+
+      const course =
+        C_BY_ID[student.courseId] || {};
+
+      return course.status === "closed";
+    });
+
+  if(closedStudents.length > 0){
+
+    alert(
+      "يوجد " +
+      closedStudents.length +
+      " سجل داخل دورة مغلقة.\n\n" +
+      "افتح الدورة أولاً ثم نفذ التعديل الجماعي."
+    );
+
+    return;
+  }
+
+  document.getElementById(
+    "bulkSelectedCount"
+  ).textContent =
+    "عدد السجلات المحددة: " +
+    selectedIds.length;
+
+  /*
+    تعبئة قائمة الدورات المفتوحة.
+  */
+  const courseSelect =
+    document.getElementById(
+      "bulkCourseValue"
+    );
+
+  courseSelect.innerHTML =
+    '<option value="">اختر الدورة</option>';
+
+  COURSES
+    .filter(c => c.status === "open")
+    .forEach(c => {
+
+      const option =
+        document.createElement("option");
+
+      option.value = c.id;
+
+      option.textContent =
+        (c.TrainingCourse || "-") +
+        " | " +
+        (c.Trainer || "-") +
+        " | " +
+        (c.Period || "-") +
+        " | قاعة " +
+        (c.Room || "-");
+
+      courseSelect.appendChild(option);
+
+    });
+
+  /*
+    تعبئة قائمة الباقات الموجودة.
+  */
+  const packageSelect =
+    document.getElementById(
+      "bulkPackageValue"
+    );
+
+  packageSelect.innerHTML =
+    '<option value="">اختر الباقة</option>';
+
+  /*
+    يدعم PACKAGES إذا كانت موجودة.
+  */
+  if(
+    typeof PACKAGES !== "undefined" &&
+    Array.isArray(PACKAGES)
+  ){
+
+    PACKAGES.forEach(pkg => {
+
+      const option =
+        document.createElement("option");
+
+      option.value =
+        pkg.name || "";
+
+      option.textContent =
+        (pkg.name || "-") +
+        (
+          pkg.price !== undefined
+            ? " — " + pkg.price + " ريال"
+            : ""
+        );
+
+      packageSelect.appendChild(option);
+
+    });
+
+  }
+
+  /*
+    إضافة أسماء الباقات الموجودة
+    حاليًا في سجلات الطلاب أيضًا.
+  */
+  const existingPackageNames =
+    [
+      ...new Set(
+        STUDENTS
+          .map(s => s.PackageName)
+          .filter(Boolean)
+      )
+    ];
+
+  existingPackageNames.forEach(name => {
+
+    const alreadyExists =
+      [...packageSelect.options]
+        .some(
+          option =>
+            option.value === name
+        );
+
+    if(!alreadyExists){
+
+      const option =
+        document.createElement("option");
+
+      option.value = name;
+      option.textContent = name;
+
+      packageSelect.appendChild(option);
+    }
+
+  });
+
+  resetBulkEditForm();
+
+  document.getElementById(
+    "bulkEditModal"
+  ).style.display = "flex";
+}
+
+
+/*
+  تصفير حقول النافذة عند فتحها.
+*/
+function resetBulkEditForm(){
+
+  const checkboxes = [
+    "bulkUseNationality",
+    "bulkUseCourse",
+    "bulkUsePackage",
+    "bulkUsePaymentType",
+    "bulkUseFee",
+    "bulkUsePaid",
+    "bulkUseTotalLevels",
+    "bulkUseUsedLevels",
+    "bulkUseAge"
+  ];
+
+  checkboxes.forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if(element){
+      element.checked = false;
+    }
+
+  });
+
+  const fields = [
+    "bulkNationalityValue",
+    "bulkCourseValue",
+    "bulkPackageValue",
+    "bulkPaymentTypeValue",
+    "bulkFeeValue",
+    "bulkPaidValue",
+    "bulkTotalLevelsValue",
+    "bulkUsedLevelsValue",
+    "bulkAgeValue"
+  ];
+
+  fields.forEach(id => {
+
+    const element =
+      document.getElementById(id);
+
+    if(!element){
+      return;
+    }
+
+    element.disabled = true;
+    element.value = "";
+  });
+}
+
+
+/*
+  إغلاق نافذة التعديل الجماعي.
+*/
+function closeBulkEditModal(){
+
+  document.getElementById(
+    "bulkEditModal"
+  ).style.display = "none";
+}
+
+
+/*
+  قراءة قيمة رقمية مع التحقق.
+*/
+function readBulkNumber(
+  checkboxId,
+  inputId,
+  label
+){
+
+  const checkbox =
+    document.getElementById(
+      checkboxId
+    );
+
+  const input =
+    document.getElementById(
+      inputId
+    );
+
+  if(!checkbox.checked){
+    return {
+      enabled:false,
+      value:null
+    };
+  }
+
+  if(input.value === ""){
+
+    throw new Error(
+      "أدخل قيمة " + label
+    );
+  }
+
+  const value =
+    Number(input.value);
+
+  if(
+    !Number.isFinite(value) ||
+    value < 0
+  ){
+
+    throw new Error(
+      "قيمة " +
+      label +
+      " غير صحيحة"
+    );
+  }
+
+  return {
+    enabled:true,
+    value:value
+  };
+}
+
+
+/*
+  حفظ التعديل الجماعي.
+*/
+async function saveBulkEdit(){
+
+  const selectedIds =
+    getSelectedStudentIds();
+
+  if(selectedIds.length === 0){
+
+    alert("لا توجد سجلات محددة");
+
+    return;
+  }
+
+  const useNationality =
+    document.getElementById(
+      "bulkUseNationality"
+    ).checked;
+
+  const useCourse =
+    document.getElementById(
+      "bulkUseCourse"
+    ).checked;
+
+  const usePackage =
+    document.getElementById(
+      "bulkUsePackage"
+    ).checked;
+
+  const usePaymentType =
+    document.getElementById(
+      "bulkUsePaymentType"
+    ).checked;
+
+  const useFee =
+    document.getElementById(
+      "bulkUseFee"
+    ).checked;
+
+  const usePaid =
+    document.getElementById(
+      "bulkUsePaid"
+    ).checked;
+
+  const useTotalLevels =
+    document.getElementById(
+      "bulkUseTotalLevels"
+    ).checked;
+
+  const useUsedLevels =
+    document.getElementById(
+      "bulkUseUsedLevels"
+    ).checked;
+
+  const useAge =
+    document.getElementById(
+      "bulkUseAge"
+    ).checked;
+
+  const hasAnyChange =
+    useNationality ||
+    useCourse ||
+    usePackage ||
+    usePaymentType ||
+    useFee ||
+    usePaid ||
+    useTotalLevels ||
+    useUsedLevels ||
+    useAge;
+
+  if(!hasAnyChange){
+
+    alert(
+      "فعّل حقلًا واحدًا على الأقل للتعديل"
+    );
+
+    return;
+  }
+
+  try{
+
+    /*
+      قراءة الحقول الرقمية.
+    */
+    const feeInput =
+      readBulkNumber(
+        "bulkUseFee",
+        "bulkFeeValue",
+        "الرسوم"
+      );
+
+    const paidInput =
+      readBulkNumber(
+        "bulkUsePaid",
+        "bulkPaidValue",
+        "المدفوع"
+      );
+
+    const totalInput =
+      readBulkNumber(
+        "bulkUseTotalLevels",
+        "bulkTotalLevelsValue",
+        "إجمالي المستويات"
+      );
+
+    const usedInput =
+      readBulkNumber(
+        "bulkUseUsedLevels",
+        "bulkUsedLevelsValue",
+        "المستويات المستخدمة"
+      );
+
+    const ageInput =
+      readBulkNumber(
+        "bulkUseAge",
+        "bulkAgeValue",
+        "العمر"
+      );
+
+    const nationality =
+      document.getElementById(
+        "bulkNationalityValue"
+      ).value;
+
+    const courseId =
+      document.getElementById(
+        "bulkCourseValue"
+      ).value;
+
+    const packageName =
+      document.getElementById(
+        "bulkPackageValue"
+      ).value;
+
+    const paymentType =
+      document.getElementById(
+        "bulkPaymentTypeValue"
+      ).value;
+
+    if(
+      useNationality &&
+      !nationality
+    ){
+
+      alert("اختر الجنسية الجديدة");
+      return;
+    }
+
+    if(
+      useCourse &&
+      !courseId
+    ){
+
+      alert("اختر الدورة الجديدة");
+      return;
+    }
+
+    if(
+      usePackage &&
+      !packageName
+    ){
+
+      alert("اختر الباقة الجديدة");
+      return;
+    }
+
+    if(
+      usePaymentType &&
+      !paymentType
+    ){
+
+      alert("اختر طريقة الدفع الجديدة");
+      return;
+    }
+
+    /*
+      حماية إضافية من تعديل سجل
+      تابع لدورة مغلقة.
+    */
+    const lockedIds =
+      selectedIds.filter(id => {
+
+        const student =
+          STUDENTS.find(
+            s => s.id === id
+          );
+
+        const course =
+          C_BY_ID[
+            student?.courseId
+          ] || {};
+
+        return (
+          course.status === "closed"
+        );
+      });
+
+    if(lockedIds.length > 0){
+
+      alert(
+        "تعذر التعديل.\n" +
+        "يوجد " +
+        lockedIds.length +
+        " سجل تابع لدورة مغلقة."
+      );
+
+      return;
+    }
+
+    if(
+      !confirm(
+        "سيتم تعديل " +
+        selectedIds.length +
+        " سجلًا مرة واحدة.\n\n" +
+        "هل تريد المتابعة؟"
+      )
+    ){
+      return;
+    }
+
+    const saveButton =
+      document.getElementById(
+        "bulkSaveBtn"
+      );
+
+    saveButton.disabled = true;
+
+    saveButton.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
+
+    /*
+      Firestore Batch:
+      نستخدم 400 عملية كحد آمن لكل دفعة.
+    */
+    let batch = db.batch();
+    let batchCount = 0;
+    let successCount = 0;
+
+    async function commitCurrentBatch(){
+
+      if(batchCount === 0){
+        return;
+      }
+
+      await batch.commit();
+
+      batch = db.batch();
+      batchCount = 0;
+    }
+
+    for(const id of selectedIds){
+
+      const student =
+        STUDENTS.find(
+          s => s.id === id
+        );
+
+      if(!student){
+        continue;
+      }
+
+      const updateData = {};
+
+      /*
+        الحقول النصية.
+      */
+      if(useNationality){
+
+        updateData.Nationality =
+          nationality;
+      }
+
+      if(useCourse){
+
+        updateData.courseId =
+          courseId;
+      }
+
+      if(usePackage){
+
+        updateData.PackageName =
+          packageName;
+      }
+
+      if(usePaymentType){
+
+        updateData.PaymentType =
+          paymentType;
+      }
+
+      if(ageInput.enabled){
+
+        updateData.age =
+          ageInput.value;
+      }
+
+      /*
+        استخدام القيمة الجديدة إن كانت مفعلة،
+        وإلا استخدام القيمة القديمة للطالب.
+      */
+      const oldFee =
+        Number(
+          student.CourseFee ??
+          student.StudentFee ??
+          0
+        ) || 0;
+
+      const oldPaid =
+        Number(
+          student.PaidAmount ??
+          student.AmountPaid ??
+          0
+        ) || 0;
+
+      const oldTotal =
+        Number(
+          student.totalLevels || 0
+        ) || 0;
+
+      const oldUsed =
+        Number(
+          student.usedLevels || 0
+        ) || 0;
+
+      const finalFee =
+        feeInput.enabled
+          ? feeInput.value
+          : oldFee;
+
+      const finalPaid =
+        paidInput.enabled
+          ? paidInput.value
+          : oldPaid;
+
+      const finalTotal =
+        totalInput.enabled
+          ? totalInput.value
+          : oldTotal;
+
+      const finalUsed =
+        usedInput.enabled
+          ? usedInput.value
+          : oldUsed;
+
+      /*
+        تحديث الرسوم والمدفوع.
+      */
+      if(feeInput.enabled){
+
+        updateData.CourseFee =
+          finalFee;
+
+        updateData.StudentFee =
+          finalFee;
+      }
+
+      if(paidInput.enabled){
+
+        updateData.PaidAmount =
+          finalPaid;
+
+        updateData.AmountPaid =
+          finalPaid;
+      }
+
+      /*
+        إذا تغيرت الرسوم أو المدفوع،
+        نعيد حساب المتبقي.
+      */
+      if(
+        feeInput.enabled ||
+        paidInput.enabled
+      ){
+
+        const remainingAmount =
+          finalPaid === 0
+            ? 0
+            : Math.max(
+                finalFee -
+                finalPaid,
+                0
+              );
+
+        updateData.RemainingAmount =
+          remainingAmount;
+
+        updateData.Remaining =
+          remainingAmount;
+      }
+
+      /*
+        تحديث المستويات.
+      */
+      if(totalInput.enabled){
+
+        updateData.totalLevels =
+          finalTotal;
+      }
+
+      if(usedInput.enabled){
+
+        updateData.usedLevels =
+          finalUsed;
+      }
+
+      if(
+        totalInput.enabled ||
+        usedInput.enabled
+      ){
+
+        updateData.remainingLevels =
+          Math.max(
+            finalTotal -
+            finalUsed,
+            0
+          );
+      }
+
+      /*
+        إعادة حساب سعر المستوى إذا
+        تغيرت الرسوم أو إجمالي المستويات.
+      */
+      if(
+        feeInput.enabled ||
+        totalInput.enabled
+      ){
+
+        updateData.LevelPrice =
+          finalTotal > 0
+            ? Math.round(
+                (
+                  finalFee /
+                  finalTotal
+                ) * 100
+              ) / 100
+            : 0;
+      }
+
+      updateData.updatedAt =
+        firebase.firestore
+          .FieldValue
+          .serverTimestamp();
+
+      batch.update(
+        db
+          .collection("students")
+          .doc(id),
+        updateData
+      );
+
+      batchCount++;
+      successCount++;
+
+      if(batchCount >= 400){
+
+        await commitCurrentBatch();
+      }
+    }
+
+    await commitCurrentBatch();
+
+    closeBulkEditModal();
+
+    clearSelection();
+
+    alert(
+      "تم التعديل الجماعي بنجاح\n\n" +
+      "عدد السجلات المحدثة: " +
+      successCount
+    );
+
+  }catch(error){
+
+    console.error(
+      "BULK EDIT ERROR:",
+      error
+    );
+
+    alert(
+      "حدث خطأ أثناء التعديل الجماعي:\n" +
+      error.message
+    );
+
+  }finally{
+
+    const saveButton =
+      document.getElementById(
+        "bulkSaveBtn"
+      );
+
+    if(saveButton){
+
+      saveButton.disabled = false;
+
+      saveButton.innerHTML =
+        '<i class="fa-solid fa-floppy-disk"></i> حفظ التعديل الجماعي';
+    }
+  }
+}
+/* ===========================
    BULK NATIONALITY
 =========================== */
 
